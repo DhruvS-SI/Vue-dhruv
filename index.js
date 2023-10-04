@@ -14,10 +14,6 @@ const cardMarkup = `<div class="col">
     </div>
 </div>
 </div>`;
-
-
-
-
 const originalPlayers = [
     {
         name: 'Virat Kohli',
@@ -183,13 +179,17 @@ const originalPlayers = [
   const bowlerRow = document.querySelector('.bowler-row');
   const allrounderRow = document.querySelector('.all-rounder-row');
 
+let Teams = dropdown.options[dropdown.selectedIndex].innerHTML;
   
 dropdown.addEventListener('change', function () {
-    Teams = dropdown.options[dropdown.selectedIndex].value;
+    Teams = dropdown.options[dropdown.selectedIndex].innerHTML;
+    console.log(Teams)
     renderPlayers();
 });
-  let Teams = dropdown.options[dropdown.selectedIndex].innerHTML;
-  //const allTeams = ;
+
+
+  
+  
 
   function renderPlayers() {
     
@@ -197,8 +197,7 @@ dropdown.addEventListener('change', function () {
     bowlerRow.innerHTML = '';
     allrounderRow.innerHTML = '';
 
-
-
+    console.log(players)
 players.forEach((playerInfo,i) => {
 if(playerInfo.role == 2 && (playerInfo.team_name == Teams || Teams == "ALL"))
 {
@@ -262,25 +261,23 @@ let hundreds = playerInfo['100s']
  .replace('{{BEST_BOWLING_FIGURES}}',best_bowling_figures)
  allrounderRow.innerHTML = allrounderRow.innerHTML + playerMarkup;
 }
-
-
 })
 
   }
   
 renderPlayers();
-
-
-
 function searchPlayers() {
     const search = document.getElementById("searchInput").value.trim().toLowerCase();
-    Teams = dropdown.options[dropdown.selectedIndex].value;
+    Teams = dropdown.options[dropdown.selectedIndex].innerHTML;
     players = originalPlayers.filter((player) => {
         const playerName = player.name.toLowerCase();
         const playerTeam = player.team_name.toLowerCase();
-        return playerName.includes(search) && (Teams == "ALL" || playerTeam.includes(Teams.toLowerCase()));
+
+        
+        // return playerName.includes(search) && (Teams == "ALL" || playerTeam.includes(Teams.toLowerCase()));
+        return playerName.includes(search) || playerTeam.includes(search);
     });
 
-
+    console.log(players)
     renderPlayers();
 }
